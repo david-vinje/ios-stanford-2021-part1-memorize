@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        CardView(emoji: "😇")
+        HStack {
+            CardView(emoji: "😇")
+            CardView(emoji: "😇")
+            CardView(emoji: "😇")
+        }
     }
 }
 
