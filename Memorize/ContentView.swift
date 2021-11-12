@@ -9,8 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        CardView(emoji: "😇")
+    }
+}
+
+struct CardView: View {
+    var emoji: String
+    var isFaceUp = true
+    var body: some View {
+        ZStack {
+            if (isFaceUp) {
+                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).stroke()
+                Text(emoji).font(.largeTitle)
+            } else {
+                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).foregroundColor(.orange)
+            }
+        }.padding()
     }
 }
 
