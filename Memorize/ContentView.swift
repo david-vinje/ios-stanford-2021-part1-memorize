@@ -8,27 +8,63 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var emojiCount = 6
+    let emojis = ["😀", "😇", "😍", "😘", "😜", "🤓", "😎", "🥳", "😞", "🥶", "🤬", "😱", "😰", "😓", "🤭", "😶", "🤫", "🤥", "😬", "😲", "😴", "🥱", "🙄", "🤗", "😳", "😭", "😪", "🤢", "🥴", "🤧", "🤒", "🤑", "😷", "🤠"]
     var body: some View {
-        HStack {
-            CardView(emoji: "😇")
-            CardView(emoji: "😇")
-            CardView(emoji: "😇")
+            VStack {
+                HStack {
+                    ForEach(emojis[1..<emojiCount], id: \.self) { emoji in
+                        CardView(emoji: emoji)
+                    }
+                }.padding().foregroundColor(.orange)
+                Spacer()
+                HStack {
+                    Spacer()
+                    add
+                    Spacer()
+                    remove
+                    Spacer()
+                }
+            }.foregroundColor(.orange).font(.largeTitle)
+        }
+    
+    var add: some View {
+        Button {
+            if (emojiCount < emojiCount) {
+                emojiCount += 1
+            }
+        } label: {
+            Image(systemName: "plus.circle")
+        }
+    }
+    
+    var remove: some View {
+        Button {
+            if (emojiCount > 1) {
+                emojiCount -= 1
+            }
+        } label: {
+            Image(systemName: "minus.circle")
         }
     }
 }
 
 struct CardView: View {
     var emoji: String
-    var isFaceUp = true
+    @State var isFaceUp = true
     var body: some View {
         ZStack {
+            let shape = RoundedRectangle(cornerRadius: 25.0)
             if (isFaceUp) {
-                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).stroke()
-                Text(emoji).font(.largeTitle)
+                shape.foregroundColor(.white)
+                shape.stroke(lineWidth: 3.0)
+                Text(emoji)
             } else {
-                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).foregroundColor(.orange)
+                shape
             }
-        }.padding()
+        }.onTapGesture {
+            isFaceUp = !isFaceUp
+        }
     }
 }
 
